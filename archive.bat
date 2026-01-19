@@ -26,10 +26,13 @@ IF NOT EXIST "%INPUT_PATH%" (
 REM Get base directory name (dist)
 for %%I in ("%INPUT_PATH%") do set DIR_NAME=%%~nxI
 
+REM Get parent directory
+for %%I in ("%INPUT_PATH%\..") do set PARENT_DIR=%%~fI
+
 REM Output file name
 set OUTPUT_FILE=%DIR_NAME%.tar.gz
 
 REM Create tar.gz archive
-tar -czf "%OUTPUT_FILE%" -C "%~dp1" "%DIR_NAME%"
+tar -czf "%OUTPUT_FILE%" -C "%PARENT_DIR%" "%DIR_NAME%"
 
 echo Archive created: %OUTPUT_FILE%
